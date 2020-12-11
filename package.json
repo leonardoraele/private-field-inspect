@@ -1,0 +1,11 @@
+{
+  "name": "private-field-inspect",
+  "version": "0.1.0",
+  "description": "Like util.inspect, but can see private class fields",
+  "main": "private-field-inspect.js",
+  "scripts": {
+    "test": "node test.js"
+  },
+  "author": "Leonardo Raele <leonardoraele@gmail.com>",
+  "license": "MIT"
+}
