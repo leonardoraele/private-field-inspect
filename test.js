@@ -2,37 +2,35 @@ const inspect = require('./private-field-inspect.js');
 
 class Subject
 {
-	publicField = 'public field value';
-	#privateString = 'this is my secret text';
-	#privateNumber = Number.NEGATIVE_INFINITY;
-	#anotherNumber = 10;
-	#privateObject = { a: 1, b: 2, c: { d: 3, e: 4}, f: null, g: 'NO LONGER SECRET'};
-	#privateNull = null;
-	#privateUndefined = undefined;
+	publicValue = "abuilaec";
+	#privateNumber = 0;
+	#creature =
+	{
+		name: 'creature',
+		head:
+		{
+			name: 'head',
+			body:
+			{
+				name: 'body',
+				tail:
+				{
+					name: 'tail',
+					other: null,
+				},
+			},
+		}
+	};
 	#privateArray = [1, 2, 3];
 
-	get publicGetter()
+	constructor()
 	{
-		return 'public getter value';
-	}
-
-	get #privateGetter()
-	{
-		return 'private getter value';
-	}
-
-	publicMethod()
-	{
-		return 'public method value';
-	}
-
-	#privateMethod()
-	{
-		return 'private method value';
+		// Force circular reference
+		this.#creature.head.body.tail.other = this.#creature;
 	}
 }
 
 const subject = new Subject();
 
-inspect(subject, {colors: true})
+inspect(subject, {colors: true, depth: 12})
 	.then(console.log);

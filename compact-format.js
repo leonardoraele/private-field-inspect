@@ -1,6 +1,6 @@
 const util = require('util');
 
-const formatByType =
+const FORMAT_BY_TYPE =
 {
 	// value.value will be available if the property is null
 	object: value => value.value !== undefined ? value.value : value.description,
@@ -16,34 +16,45 @@ const formatByType =
 
 module.exports = async function(session, value, options)
 {
-	const subject = await formatValue(session, value);
+	const subject = await formatValue(session, value, options?.depth ?? 2);
 
-	return util.inspect(subject, options);
+	return {
+		object: () => subject,
+		json: () => JSON.stringify(subject),
+		inspect: () => util.inspect(subject, options),
+	}[options?.output ?? 'inspect']();
 }
 
-async function formatValue(session, value)
+async function formatValue(session, value, depth)
 {
 	if (value.objectId)
 	{
-		return await formatObject(session, value);
+		if (depth > 0)
+		{
+			return await formatObject(session, value, depth);
+		}
+		else
+		{
+			return value.description ?? objectId;
+		}
 	}
 	else
 	{
-		return formatByType[value.type](value);
+		return FORMAT_BY_TYPE[value.type](value);
 	}
 }
 
-async function formatObject(session, value)
+async function formatObject(session, value, depth)
 {
 	const object = {};
 	const properties = await getProperties(session, value);
 
 	// The property doesn't have a `value` if it's a getter or setter
-	const fields = properties.filter(({value = null}) => value && value?.type !== 'function');
+	const fields = properties.filter(({value = null}) => value && value.type !== 'function');
 
 	for (let {name, value} of fields)
 	{
-		object[name] = await formatValue(session, value);
+		object[name] = await formatValue(session, value, depth - 1);
 	}
 
 	return object;
