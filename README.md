@@ -4,10 +4,10 @@ This function inspects the contents of a given object and returns a string repre
 including it's private class fields.
 This is intended to be used for debugging purposes.
 
-### Example
+### Usage
 
 ```js
-import inspect from '../path/to/private-field-inspect';
+const inspect = require('./relative/path/to/private-field-inspect');
 
 class Subject
 {
@@ -25,6 +25,12 @@ Output:
 
 ```js
 { publicValue: 'not so secret', '#secretValue': 'my secret' }
+```
+
+**Alternativelly,** import it only once like below to setup `inspect` as a global function.
+
+```js
+require('./relative/path/to/private-field-inspect/global');
 ```
 
 ### Options

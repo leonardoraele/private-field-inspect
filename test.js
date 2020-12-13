@@ -1,4 +1,4 @@
-const inspect = require('./private-field-inspect.js');
+require('./global');
 
 class Subject
 {
