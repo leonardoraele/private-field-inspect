@@ -74,8 +74,8 @@ Optios:
 - Node 14.5+
 - Doesn't work in the browser
 
-### Why Use This?
+## Why
 
-As of now, VS Code's built-in debugger (up to 1.51.1) doesn't support private class fields yet, and Node (up to 15.4)
-doesn't allow you to cheat encapsulation to inspect private fields, so if you want to see the value of your private
-variables you have to resort to this.
+As of now, VS Code's built-in debugger (currently 1.51.1) doesn't support private class fields yet, and Node (currently 15.4)
+doesn't show private class fields with `util.inspect`, so if you want to debug your code that contains private class fields,
+you have to resort to something like this.
