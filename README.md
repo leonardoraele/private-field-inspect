@@ -61,8 +61,8 @@ Optios:
 	1. A "Debugger listening on \<url>" warning will be printed in the console even if you are not running node with
 		`--inspect`;
 	1. If you already happen to have a debugger session open when the `inspect` function is called,
-		the runtime will pause inside of it as if there were a breakpoint there
-		(just ignore it and continue the execution); and
+		the runtime might pause inside of it as if there were a breakpoint there
+		(in this case, just ignore it and continue the execution); and
 	1. It doesn't work in the browser.
 		(use Chrome DevTools to debug private class fields in the browser)
 
