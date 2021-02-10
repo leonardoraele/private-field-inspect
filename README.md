@@ -17,8 +17,7 @@ class Subject
 
 const subject = new Subject();
 
-inspect(subject)
-	.then(console.debug);
+inspect(subject).then(console.debug);
 ```
 
 Output:
@@ -45,10 +44,11 @@ Optios:
 		Example:
 
 		```js
-		const secretValue = (await inspect(subject, {output: 'object'}))['#secretValue'];
+		const openObject = await inspect(subject, {output: 'object'});
+		const secretValue = openObject['#secretValue'];
 		```
 - `depth` (default 2): Determines how deep in the object hierarchy the function should go.
-	Don't use `Infinity` if your object might have circular references because the function does't treat it.
+	Don't use `Infinity` if your object might have circular references because the function does't handle it.
 
 ### Caveats
 
