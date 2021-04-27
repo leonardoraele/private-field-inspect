@@ -75,6 +75,10 @@ Optios:
 
 ## Why
 
-As of now, VS Code's built-in debugger (currently 1.51.1) doesn't support private class fields yet, and Node (currently 15.4)
+> As of now, VS Code's built-in debugger (currently 1.51.1) doesn't support private class fields yet, and Node (currently 15.4)
 doesn't show private class fields with `util.inspect`, so if you want to debug your code that contains private class fields,
 you have to resort to something like this.
+
+**Update:** As of 1.56.1, [vscode-js-debug](github.com/microsoft/vscode-js-debug) now supports inspecting private class fields,
+so this package is no longer necessary unless you use another debugger that don't support it or you don't have access to a
+debugger in your development environment.
