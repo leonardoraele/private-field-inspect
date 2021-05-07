@@ -17,8 +17,7 @@ class Subject
 
 const subject = new Subject();
 
-inspect(subject)
-	.then(console.debug);
+inspect(subject).then(console.debug);
 ```
 
 Output:
@@ -51,11 +50,11 @@ Optios:
 		Example:
 
 		```js
-		const secretValue = await inspect(subject, {output: 'object'})
-			.then(fields => fields['#secretValue']);
+		const openObject = await inspect(subject, {output: 'object'});
+		const secretValue = openObject['#secretValue'];
 		```
 - `depth` (default 2): Determines how deep in the object hierarchy the function should go.
-	Don't use `Infinity` if your object might have circular references because the function does't treat it.
+	Don't use `Infinity` if your object might have circular references because the function does't handle it.
 
 ### Caveats
 
@@ -68,8 +67,8 @@ Optios:
 	1. A "Debugger listening on \<url>" warning will be printed in the console even if you are not running node with
 		`--inspect`;
 	1. If you already happen to have a debugger session open when the `inspect` function is called,
-		the runtime will pause inside of it as if there were a breakpoint there
-		(just ignore it and continue the execution); and
+		the runtime might pause inside of it as if there were a breakpoint there
+		(in this case, just ignore it and continue the execution); and
 	1. It doesn't work in the browser.
 		(use Chrome DevTools to debug private class fields in the browser)
 
@@ -80,8 +79,12 @@ Optios:
 - Node 14.5+
 - Doesn't work in the browser
 
-### Why Use This?
+## Why
 
-As of now, VS Code's built-in debugger (up to 1.51.1) doesn't support private class fields yet, and Node (up to 15.4)
-doesn't allow you to cheat encapsulation to inspect private fields, so if you want to see the value of your private
-variables you have to resort to this.
+> As of now, VS Code's built-in debugger (currently 1.51.1) doesn't support private class fields yet, and Node (currently 15.4)
+doesn't show private class fields with `util.inspect`, so if you want to debug your code that contains private class fields,
+you have to resort to something like this.
+
+**Update:** As of 1.56.1, [vscode-js-debug](github.com/microsoft/vscode-js-debug) now supports inspecting private class fields,
+so this package is no longer necessary unless you use another debugger that don't support it or you don't have access to a
+debugger in your development environment.
