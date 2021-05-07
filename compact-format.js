@@ -20,7 +20,7 @@ module.exports = async function(session, value, options)
 
 	return {
 		object: () => subject,
-		json: () => JSON.stringify(subject),
+		json: () => JSON.stringify(subject, undefined, options?.space ?? optios?.spaces),
 		inspect: () => util.inspect(subject, options),
 	}[options?.output ?? 'inspect']();
 }
